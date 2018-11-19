@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <LinearLayout
+
+        android:id="@+id/recipe_item"
+        android:layout_width="match_parent"
+        android:layout_height="104dp"
+        android:layout_marginStart="@dimen/normal_margin"
+        android:layout_marginTop="@dimen/normal_margin"
+        android:layout_marginEnd="@dimen/normal_margin"
+        android:background="@drawable/recipe_selector"
+        android:paddingBottom="@dimen/normal_margin">
+
+        <ImageView
+            android:id="@+id/iv_recipe_image"
+            android:layout_width="106dp"
+            android:layout_height="103dp"
+            android:contentDescription="@string/image"
+            android:src="@drawable/recipe_icon"
+            android:textAlignment="gravity" />
+
+        <TextView
+            android:id="@+id/tv_recipe_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="52dp"
+            android:layout_marginTop="32dp"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            app:layout_constraintLeft_toRightOf="@+id/iv_recipe_image"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Title" />
+
+        <TextView
+            android:id="@+id/tv_recipe_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:visibility="invisible"
+            tools:text="1234" />
+
+    </LinearLayout>
+
+</layout>
