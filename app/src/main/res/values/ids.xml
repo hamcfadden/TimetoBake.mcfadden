@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:type="http://schemas.android.com/tools">
+    <item type="id" name="iv_next_nav"/>
+    <item type="id" name="recipe_widget_listview"/>
+    <item type="id" name="iv_previous_nav"/>
+</resources>

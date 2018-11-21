@@ -26,10 +26,8 @@
 
             <android.support.v7.widget.RecyclerView xmlns:tools="http://schemas.android.com/tools"
                 android:id="@+id/rv_recipe_list"
-                android:name="fragments.RecipeFragment"
-                android:layout_width="@dimen/item_width"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:context=".activities.RecipeListActivity"
                 tools:listitem="@layout/recipe_list_item" />
 
             <FrameLayout

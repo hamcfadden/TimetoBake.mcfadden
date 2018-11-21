@@ -6,7 +6,7 @@
     <RelativeLayout
 
         android:id="@+id/recipe_item"
-        android:layout_width="match_parent"
+        android:layout_width="@dimen/item_width"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/normal_margin"
         android:layout_marginTop="@dimen/normal_margin"
@@ -23,7 +23,7 @@
             android:layout_height="40dp"
             android:layout_below="@+id/tv_recipe_id"
             android:layout_alignParentStart="true"
-            android:layout_marginStart="11dp"
+            android:layout_marginStart="8dp"
             android:contentDescription="@string/image"
             android:src="@drawable/recipe_icon" />
 
@@ -32,7 +32,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
-            android:layout_marginStart="100dp"
+            android:layout_marginStart="75dp"
             android:layout_marginTop="25dp"
             android:foregroundGravity="left"
             android:textSize="18sp"

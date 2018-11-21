@@ -2,22 +2,17 @@ package com.udacity.heather.timetobake.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.NavUtils;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Toast;
 
-import com.udacity.heather.timetobake.Constants;
+import com.udacity.heather.timetobake.utilities.Constants;
 import com.udacity.heather.timetobake.R;
 import com.udacity.heather.timetobake.fragments.IngredientFragment;
 import com.udacity.heather.timetobake.fragments.StepFragment;
+import com.udacity.heather.timetobake.fragments.StepFragment.NextPreviousClickListener;
 import com.udacity.heather.timetobake.models.Recipe;
 
 
@@ -39,7 +34,7 @@ public class RecipeDetailActivity extends AppCompatActivity implements StepFragm
                 currentRecipe = extras.getParcelable(Constants.CURRENT_RECIPE);
                 stepPosition = extras.getInt(Constants.CURRENT_STEP_POSITION_KEY);
 
-                if (intent.getAction().equals(Constants.RECIPE_ACTION_INGREDIENTS)) {
+                if (intent.getAction().equals(Constants.ACTION_RECIPE_INGREDIENTS)) {
                     setTitle(currentRecipe.getName());
                     IngredientFragment ingredientFragment = new IngredientFragment();
                     Bundle ingredientsBundle = new Bundle();

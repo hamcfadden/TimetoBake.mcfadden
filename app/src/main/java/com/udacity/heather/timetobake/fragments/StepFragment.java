@@ -42,7 +42,7 @@ import com.google.android.exoplayer2.trackselection.TrackSelector;
 import com.google.android.exoplayer2.ui.PlayerView;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
-import com.udacity.heather.timetobake.Constants;
+import com.udacity.heather.timetobake.utilities.Constants;
 import com.udacity.heather.timetobake.R;
 import com.udacity.heather.timetobake.activities.RecipeDetailActivity;
 import com.udacity.heather.timetobake.models.Recipe;
@@ -57,26 +57,22 @@ public  class StepFragment extends Fragment implements Player.EventListener {
 
     private static final String TAG = StepFragment.class.getSimpleName();
     private FragmentStepBinding stepBinding;
-    // Detect if the device is a smartphone or tablet
+
     private boolean mTwoPane;
     private Recipe currentRecipe = new Recipe();
     private int stepPosition;
     private Step currentStep = new Step();
     private ExoPlayer exoPlayer;
-    private PlayerView playerView;
+
     private static MediaSessionCompat mMediaSession;
     private PlaybackStateCompat.Builder mStateBuilder;
     private NotificationManager mNotificationManager;
     // An interface to implement onNextClicked and onPreviousClicked functions
-    private NextPreviousClickListener nextPreviousClickListener;
+     NextPreviousClickListener nextPreviousClickListener;
 
     private boolean mPlayWhenReady = true;
     private long mCurrentVideoPosition = -1;
 
-    //required empty constructor
-    public StepFragment() {
-
-    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -128,8 +124,6 @@ public  class StepFragment extends Fragment implements Player.EventListener {
         stepBinding.tvStepDescription.setText(currentStep.getDescription());
         // The method will be implemented in RecipeActivity or RecipeDetailActivity using NextPreviousClickListener interface
         stepBinding.btnNextStep.setOnClickListener(new View.OnClickListener() {
-
-
             @Override
             public void onClick(View v) {
                 nextPreviousClickListener.onNextClicked();
@@ -145,7 +139,6 @@ public  class StepFragment extends Fragment implements Player.EventListener {
         });
         return view;
     }
-
 
     // An interface to implement onNextClicked and onPreviousClicked functions
     public interface NextPreviousClickListener {
@@ -167,10 +160,7 @@ public  class StepFragment extends Fragment implements Player.EventListener {
                 e.printStackTrace();
             }
         }
-
-
     }
-
     private void initializeMediaSession() {
 
         mMediaSession = new MediaSessionCompat(getActivity(), TAG);
@@ -213,7 +203,7 @@ public  class StepFragment extends Fragment implements Player.EventListener {
         Intent intent = new Intent(getActivity(), RecipeDetailActivity.class);
         intent.putExtra(Constants.CURRENT_RECIPE, currentRecipe);
         intent.putExtra(Constants.CURRENT_STEP_POSITION_KEY, stepPosition);
-        intent.setAction(Constants.RECIPE_ACTION_STEP);
+        intent.setAction(Constants.ACTION_RECIPE_STEP);
         NotificationCompat.Action restartAction = new NotificationCompat
                 .Action(R.drawable.exo_controls_previous, getString(R.string.restart_btn_notification),
                 MediaButtonReceiver.buildMediaButtonPendingIntent
@@ -282,12 +272,6 @@ public  class StepFragment extends Fragment implements Player.EventListener {
             exoPlayer = null;
         }
     }
-
-
-    // @Override
-    //public void onTimelineChanged (Timeline timeline, Object manifest){
-    //}
-
     @Override
     public void onTimelineChanged(Timeline timeline, Object manifest, int reason) {
 
@@ -400,8 +384,9 @@ public  class StepFragment extends Fragment implements Player.EventListener {
     @Override
     public void onSaveInstanceState(@NonNull Bundle outState) {
         Log.w(TAG, ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>onSaveInstanceState");
+        super.onSaveInstanceState(outState);
         outState.putBoolean(Constants.PLAY_WHEN_READY, mPlayWhenReady);
         outState.putLong(Constants.CURRENT_VIDEO_POSITION, mCurrentVideoPosition);
-        super.onSaveInstanceState(outState);
+
     }
 }

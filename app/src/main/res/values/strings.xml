@@ -27,4 +27,8 @@
     <string name="main_activity_label">Time To Bake!!!</string>
     <string name="step_header">Instructions</string>
     <string name="empty_view_content_description">empty view</string>
+    <string name="recipe_icon">recipe icon</string>
+    <string name="you_will_ingredients_of_latest_recipe_you_open_here">Ingredients for current recipe listed here.</string>
+    <string name="widget_next_arrow_content_description">next_arrow</string>
+    <string name="widget_previous_arrow_content_description">previous_arrow</string>
 </resources>

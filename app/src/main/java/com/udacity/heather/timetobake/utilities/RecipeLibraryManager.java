@@ -1,9 +1,7 @@
 package com.udacity.heather.timetobake.utilities;
 
-import android.support.annotation.NonNull;
 import android.util.Log;
 
-import com.udacity.heather.timetobake.Constants;
 import com.udacity.heather.timetobake.models.Recipe;
 
 import java.util.List;
@@ -13,8 +11,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-
-import static android.support.constraint.Constraints.TAG;
 
 
 public class RecipeLibraryManager {

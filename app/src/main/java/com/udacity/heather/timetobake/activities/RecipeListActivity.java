@@ -11,12 +11,11 @@ import android.support.annotation.Nullable;
 import android.support.annotation.VisibleForTesting;
 import android.support.test.espresso.IdlingResource;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-import com.udacity.heather.timetobake.Constants;
+import com.udacity.heather.timetobake.utilities.Constants;
 import com.udacity.heather.timetobake.R;
 import com.udacity.heather.timetobake.RecipeIdlingResource;
 import com.udacity.heather.timetobake.ViewModel;
@@ -34,8 +33,6 @@ public class RecipeListActivity extends AppCompatActivity implements RecipeListA
     private RecipeListAdapter recipeListAdapter;
     private Boolean mTwoPane;
 
-    private static final int GRID_NUMBER_OF_COLUMNS_PORTRAIT = 1;
-    private static final int GRID_NUMBER_OF_COLUMNS_LANDSCAPE = 1;
 
     RecipeLibraryService recipeLibraryService;
 

@@ -1,21 +1,67 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#09C"
-    android:padding="@dimen/widget_margin">
+    android:layout_margin="4dp"
+    android:background="@drawable/recipe_background_transparent"
+    android:orientation="horizontal"
+    android:paddingBottom="@dimen/normal_margin"
+    android:paddingTop="@dimen/normal_margin">
 
-    <TextView
-        android:id="@+id/appwidget_text"
+    <ImageView
+        android:id="@+id/iv_previous_nav"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:layout_margin="8dp"
-        android:background="#09C"
-        android:contentDescription="@string/appwidget_text"
-        android:text="@string/appwidget_text"
-        android:textColor="#ffffff"
-        android:textSize="24sp"
-        android:textStyle="bold|italic" />
+        android:layout_height="match_parent"
+        android:contentDescription="@string/widget_previous_arrow_content_description"
+        android:src="@drawable/ic_baseline_keyboard_arrow_left_24px" />
 
-</RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/current_recipe_layout"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginEnd="0dp"
+        android:layout_marginStart="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_recipe_name"
+            style="@style/single_widget_primary_text"
+            tools:text="Nutella Pie" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:textStyle="bold"
+                android:textColor="@color/colorPrimaryDark"
+                android:text="@string/ingredients_header"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:textStyle="bold"
+                android:textColor="@color/colorPrimaryDark"
+                android:layout_marginStart="@dimen/normal_margin"
+                android:text="@string/ingredients_header_quantity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </LinearLayout>
+        <ListView
+            android:id="@+id/recipe_widget_listview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/iv_next_nav"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:contentDescription="@string/widget_next_arrow_content_description"
+        android:src="@drawable/ic_baseline_keyboard_arrow_right_24px" />
+</LinearLayout>

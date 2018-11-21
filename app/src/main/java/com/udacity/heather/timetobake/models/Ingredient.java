@@ -9,7 +9,7 @@ import com.google.gson.Gson;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Ingredient implements Parcelable {
+public class Ingredient implements Parcelable, IGson {
 
     @SerializedName("quantity")
     @Expose
@@ -92,5 +92,10 @@ public class Ingredient implements Parcelable {
 
     public int describeContents() {
         return 0;
+    }
+
+    @Override
+    public String toJson() {
+        return null;
     }
 }

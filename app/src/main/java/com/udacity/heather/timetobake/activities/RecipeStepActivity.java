@@ -3,13 +3,12 @@ package com.udacity.heather.timetobake.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.udacity.heather.timetobake.Constants;
+import com.udacity.heather.timetobake.utilities.Constants;
 import com.udacity.heather.timetobake.R;
 import com.udacity.heather.timetobake.fragments.IngredientFragment;
 import com.udacity.heather.timetobake.fragments.RecipeFragment;
@@ -107,7 +106,7 @@ public class RecipeStepActivity extends AppCompatActivity implements RecipeFragm
             Intent intent = new Intent(this, RecipeDetailActivity.class);
             intent.putExtra(Constants.CURRENT_RECIPE, currentRecipe);
             intent.putExtra(Constants.CURRENT_STEP_POSITION_KEY, position);
-            intent.setAction(Constants.RECIPE_ACTION_STEP);
+            intent.setAction(Constants.ACTION_RECIPE_STEP);
             if (intent.resolveActivity(getPackageManager()) != null) {
                 startActivity(intent);
             }
@@ -130,7 +129,7 @@ public class RecipeStepActivity extends AppCompatActivity implements RecipeFragm
             // Smartphone
             Intent intent = new Intent(this, RecipeDetailActivity.class);
             intent.putExtra(Constants.CURRENT_RECIPE, currentRecipe);
-            intent.setAction(Constants.RECIPE_ACTION_INGREDIENTS);
+            intent.setAction(Constants.ACTION_RECIPE_INGREDIENTS);
             if (intent.resolveActivity(getPackageManager()) != null) {
                 startActivity(intent);
             }

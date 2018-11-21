@@ -11,7 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.udacity.heather.timetobake.Constants;
+import com.udacity.heather.timetobake.utilities.Constants;
 import com.udacity.heather.timetobake.R;
 import com.udacity.heather.timetobake.adapters.StepAdapter;
 import com.udacity.heather.timetobake.databinding.FragmentRecipeBinding;
@@ -58,13 +58,17 @@ public class RecipeFragment extends Fragment implements  StepAdapter.StepAdapter
         recipeBinding.rvStepList.setAdapter(stepAdapter);
         Bundle bundle = getArguments();
         Recipe currentRecipe = bundle.getParcelable(Constants.CURRENT_RECIPE);
+
+
         if (currentRecipe != null) {
+
             stepAdapter.setStepData(currentRecipe.getSteps());
             recipeBinding.tvRecipeHeader.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     mCallback.onIngredientSelected();
                 }
+
             });
         }
         return view;
