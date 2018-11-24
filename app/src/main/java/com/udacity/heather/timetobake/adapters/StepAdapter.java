@@ -29,8 +29,7 @@ public class StepAdapter extends RecyclerView.Adapter<StepAdapter.StepAdapterVie
     public StepAdapterViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         Context context = viewGroup.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
-        boolean shouldAttachToParentImmediately = false;
-        StepListItemBinding stepBinding = StepListItemBinding.inflate(inflater, viewGroup, shouldAttachToParentImmediately);
+        StepListItemBinding stepBinding = StepListItemBinding.inflate(inflater, viewGroup, false);
         return new StepAdapterViewHolder(stepBinding);
     }
 

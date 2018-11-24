@@ -71,23 +71,13 @@ public  class StepFragment extends Fragment implements Player.EventListener {
     private boolean mPlayWhenReady = true;
     private long mCurrentVideoPosition = -1;
 
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         Log.w(TAG, ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>onCreate");
         mTwoPane = getArguments().getBoolean(Constants.TWO_PANE_KEY);
-      /*  if (!mTwoPane) {
-            int orientation = getResources().getConfiguration().orientation;
-            if (((AppCompatActivity) getActivity()).getSupportActionBar() != null) {
-                if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
-                    // In landscape
-                    ((AppCompatActivity) getActivity()).getSupportActionBar().hide();
-                } else {
-                    // In portrait
-                    ((AppCompatActivity) getActivity()).getSupportActionBar().show();
-                } */
+
 
                 if (savedInstanceState != null && savedInstanceState.containsKey(Constants.CURRENT_VIDEO_POSITION)) {
                     Log.w(TAG, ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>onCreate savedInstanceState.containsKey CURRENT_VIDEO_POSITION");
@@ -95,8 +85,6 @@ public  class StepFragment extends Fragment implements Player.EventListener {
                     mPlayWhenReady = savedInstanceState.getBoolean(Constants.PLAY_WHEN_READY);
                 }
             }
-
-
 
     @Nullable
     @Override
@@ -153,7 +141,7 @@ public  class StepFragment extends Fragment implements Player.EventListener {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        // This makes sure that the host activity has implemented the callback interface
+        // Make sure that the host activity has implemented the callback interface
         // If not, it throws an exception
         if (!mTwoPane) {
             try {

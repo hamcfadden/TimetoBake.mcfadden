@@ -16,7 +16,6 @@ public class RecipeListAdapter
             extends RecyclerView.Adapter<RecipeListAdapter.ViewHolder> {
 
     private List<Recipe> recipeList;
-    private Context context;
     private RecipeListAdapterOnClickHandler clickHandler;
 
     public RecipeListAdapter(RecipeListAdapterOnClickHandler clickHandler) {
@@ -30,10 +29,9 @@ public class RecipeListAdapter
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
-        this.context = viewGroup.getContext();
+        Context context = viewGroup.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
-        boolean shouldAttachToParentImmediately = false;
-        RecipeListItemBinding mainBinding = RecipeListItemBinding.inflate(inflater, viewGroup, shouldAttachToParentImmediately);
+        RecipeListItemBinding mainBinding = RecipeListItemBinding.inflate(inflater, viewGroup, false);
         return new ViewHolder(mainBinding);
     }
 
@@ -56,7 +54,7 @@ public class RecipeListAdapter
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
        private final RecipeListItemBinding itemBinding;
 
-      public ViewHolder(RecipeListItemBinding itemBinding) {
+      ViewHolder(RecipeListItemBinding itemBinding) {
             super(itemBinding.getRoot());
             this.itemBinding = itemBinding;
            itemBinding.getRoot().setOnClickListener(this);

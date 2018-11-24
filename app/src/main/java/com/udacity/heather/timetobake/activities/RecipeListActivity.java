@@ -22,7 +22,6 @@ import com.udacity.heather.timetobake.databinding.ActivityRecipeListBinding;
 import com.udacity.heather.timetobake.models.Recipe;
 import com.udacity.heather.timetobake.utilities.Constants;
 import com.udacity.heather.timetobake.utilities.NetworkUtils;
-import com.udacity.heather.timetobake.utilities.RecipeLibraryService;
 
 import java.util.List;
 
@@ -32,10 +31,6 @@ import androidx.test.espresso.IdlingResource;
 public class RecipeListActivity extends AppCompatActivity implements RecipeListAdapter.RecipeListAdapterOnClickHandler {
     private ActivityRecipeListBinding mainBinding;
     private RecipeListAdapter recipeListAdapter;
-    private Boolean mTwoPane;
-
-
-    RecipeLibraryService recipeLibraryService;
 
     @Nullable
     private RecipeIdlingResource mIdlingResource;
@@ -49,13 +44,12 @@ public class RecipeListActivity extends AppCompatActivity implements RecipeListA
         return mIdlingResource;
     }
 
-
         @Override
         protected void onCreate (Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
             mainBinding = DataBindingUtil.setContentView(this, R.layout.activity_recipe_list);
 
-            if (savedInstanceState != null) {
+          //  if (savedInstanceState != null) {
                 RecyclerView.LayoutManager layoutManager;
 
 
@@ -69,7 +63,6 @@ public class RecipeListActivity extends AppCompatActivity implements RecipeListA
                     layoutManager = new LinearLayoutManager(this);
                 }
 
-
                 mainBinding.rvRecipeList.setLayoutManager(layoutManager);
                 mainBinding.rvRecipeList.setHasFixedSize(true);
                 recipeListAdapter = new RecipeListAdapter(this);
@@ -79,8 +72,6 @@ public class RecipeListActivity extends AppCompatActivity implements RecipeListA
                 setupViewModel();
                 getIdlingResource();
             }
-
-        }
 
 
     private void setupViewModel() {

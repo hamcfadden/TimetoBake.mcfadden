@@ -23,8 +23,7 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.In
     @Override
     public IngredientAdapterImageViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(viewGroup.getContext());
-        boolean shouldAttachToParentImmediately = false;
-        IngredientListItemBinding itemBinding = IngredientListItemBinding.inflate(inflater, viewGroup, shouldAttachToParentImmediately);
+        IngredientListItemBinding itemBinding = IngredientListItemBinding.inflate(inflater, viewGroup, false);
         return new IngredientAdapterImageViewHolder(itemBinding);
     }
 

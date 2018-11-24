@@ -7,12 +7,14 @@ import java.util.concurrent.atomic.AtomicBoolean;
 
 import androidx.test.espresso.IdlingResource;
 
+
 public class RecipeIdlingResource implements IdlingResource {
 
     @Nullable
-    private volatile ResourceCallback callback;
+    private volatile ResourceCallback mCallback;
 
-    private AtomicBoolean isIdleNow = new AtomicBoolean(true);
+    // Idleness is controlled with this boolean.
+    private AtomicBoolean mIsIdleNow = new AtomicBoolean(true);
 
     @Override
     public String getName() {
@@ -21,18 +23,22 @@ public class RecipeIdlingResource implements IdlingResource {
 
     @Override
     public boolean isIdleNow() {
-        return isIdleNow.get();
+        return mIsIdleNow.get();
     }
 
     @Override
     public void registerIdleTransitionCallback(ResourceCallback callback) {
-        this.callback = callback;
+        mCallback = callback;
     }
 
-    public void setIdleState(boolean idleState) {
-        isIdleNow.set(idleState);
-        if (idleState && callback != null) {
-            callback.onTransitionToIdle();
+    /**
+     * Sets the new idle state, if isIdleNow is true, it pings the {@link ResourceCallback}.
+     * @param isIdleNow false if there are pending operations, true if idle.
+     */
+    public void setIdleState(boolean isIdleNow) {
+        mIsIdleNow.set(isIdleNow);
+        if (isIdleNow && mCallback != null) {
+            mCallback.onTransitionToIdle();
         }
     }
 }

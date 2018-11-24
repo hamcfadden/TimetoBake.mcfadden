@@ -20,9 +20,6 @@ import static androidx.test.espresso.matcher.ViewMatchers.withId;
 @RunWith(AndroidJUnit4.class)
 public class MainActivityBasicTest {
 
-    private static final String RECIPE_NAME = "Nutella Pie";
-
-
     @Rule
     public ActivityTestRule<RecipeListActivity> mActivityTestRule = new ActivityTestRule<>(RecipeListActivity.class);
 
