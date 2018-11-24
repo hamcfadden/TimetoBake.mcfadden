@@ -12,6 +12,7 @@
             android:layout_height="match_parent"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
+            android:tag="layout/recipe_list_land"
             android:baselineAligned="false"
             android:divider="?android:attr/dividerHorizontal"
             android:orientation="horizontal"

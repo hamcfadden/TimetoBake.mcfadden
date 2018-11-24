@@ -1,8 +1,11 @@
 package com.udacity.heather.timetobake;
+
+
 import android.support.annotation.Nullable;
-import android.support.test.espresso.IdlingResource;
 
 import java.util.concurrent.atomic.AtomicBoolean;
+
+import androidx.test.espresso.IdlingResource;
 
 public class RecipeIdlingResource implements IdlingResource {
 

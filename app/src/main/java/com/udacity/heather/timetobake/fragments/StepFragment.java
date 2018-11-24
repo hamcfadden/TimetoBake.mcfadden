@@ -5,7 +5,6 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.databinding.DataBindingUtil;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -17,11 +16,11 @@ import android.support.v4.app.NotificationCompat;
 import android.support.v4.media.session.MediaButtonReceiver;
 import android.support.v4.media.session.MediaSessionCompat;
 import android.support.v4.media.session.PlaybackStateCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 
 import com.google.android.exoplayer2.DefaultLoadControl;
@@ -39,15 +38,14 @@ import com.google.android.exoplayer2.source.TrackGroupArray;
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
 import com.google.android.exoplayer2.trackselection.TrackSelectionArray;
 import com.google.android.exoplayer2.trackselection.TrackSelector;
-import com.google.android.exoplayer2.ui.PlayerView;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
-import com.udacity.heather.timetobake.utilities.Constants;
 import com.udacity.heather.timetobake.R;
 import com.udacity.heather.timetobake.activities.RecipeDetailActivity;
+import com.udacity.heather.timetobake.databinding.FragmentStepBinding;
 import com.udacity.heather.timetobake.models.Recipe;
 import com.udacity.heather.timetobake.models.Step;
-import com.udacity.heather.timetobake.databinding.FragmentStepBinding;
+import com.udacity.heather.timetobake.utilities.Constants;
 
 import java.util.Objects;
 
@@ -77,9 +75,10 @@ public  class StepFragment extends Fragment implements Player.EventListener {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         Log.w(TAG, ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>onCreate");
         mTwoPane = getArguments().getBoolean(Constants.TWO_PANE_KEY);
-        if (!mTwoPane) {
+      /*  if (!mTwoPane) {
             int orientation = getResources().getConfiguration().orientation;
             if (((AppCompatActivity) getActivity()).getSupportActionBar() != null) {
                 if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
@@ -88,10 +87,15 @@ public  class StepFragment extends Fragment implements Player.EventListener {
                 } else {
                     // In portrait
                     ((AppCompatActivity) getActivity()).getSupportActionBar().show();
+                } */
+
+                if (savedInstanceState != null && savedInstanceState.containsKey(Constants.CURRENT_VIDEO_POSITION)) {
+                    Log.w(TAG, ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>onCreate savedInstanceState.containsKey CURRENT_VIDEO_POSITION");
+                    mCurrentVideoPosition = savedInstanceState.getLong(Constants.CURRENT_VIDEO_POSITION);
+                    mPlayWhenReady = savedInstanceState.getBoolean(Constants.PLAY_WHEN_READY);
                 }
             }
-        }
-    }
+
 
 
     @Nullable
@@ -99,13 +103,9 @@ public  class StepFragment extends Fragment implements Player.EventListener {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup
             container, @Nullable Bundle savedInstanceState) {
         stepBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_step, container, false);
-        View view = stepBinding.getRoot();
+        final View view = stepBinding.getRoot();
 
-        if (savedInstanceState != null && savedInstanceState.containsKey(Constants.CURRENT_VIDEO_POSITION)) {
-            Log.w(TAG, ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>onCreateView savedInstanceState.containsKey CURRENT_VIDEO_POSITION");
-            mCurrentVideoPosition = savedInstanceState.getLong(Constants.CURRENT_VIDEO_POSITION);
-            mPlayWhenReady = savedInstanceState.getBoolean(Constants.PLAY_WHEN_READY);
-        }
+
 
 
         currentRecipe = getArguments().getParcelable(Constants.CURRENT_RECIPE);
@@ -122,19 +122,19 @@ public  class StepFragment extends Fragment implements Player.EventListener {
             initializePlayer(videoUri);
         }
         stepBinding.tvStepDescription.setText(currentStep.getDescription());
-        // The method will be implemented in RecipeActivity or RecipeDetailActivity using NextPreviousClickListener interface
-        stepBinding.btnNextStep.setOnClickListener(new View.OnClickListener() {
+        stepBinding.btnNextStep.setOnClickListener(new OnClickListener() {
             @Override
-            public void onClick(View v) {
-                nextPreviousClickListener.onNextClicked();
+            public void onClick(View view) {
+        nextPreviousClickListener.onNextClicked(stepPosition);
             }
         });
-        // The method will be implemented in RecipeActivity or RecipeDetailActivity using NextPreviousClickListener interface
-        stepBinding.btnPreviousStep.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        stepBinding.btnPreviousStep.setOnClickListener(new OnClickListener() {
 
-                nextPreviousClickListener.onPreviousClicked();
+
+            @Override
+            public void onClick(View view) {
+
+                nextPreviousClickListener.onPreviousClicked(stepPosition);
             }
         });
         return view;
@@ -142,9 +142,11 @@ public  class StepFragment extends Fragment implements Player.EventListener {
 
     // An interface to implement onNextClicked and onPreviousClicked functions
     public interface NextPreviousClickListener {
-        void onNextClicked();
+        void onNextClicked(int position);
 
-        void onPreviousClicked();
+        void onPreviousClicked(int position);
+
+
     }
 
     // To be sure that NextPreviousClickListener is implemented in parent activity
@@ -159,8 +161,10 @@ public  class StepFragment extends Fragment implements Player.EventListener {
             } catch (ClassCastException e) {
                 e.printStackTrace();
             }
+
         }
     }
+
     private void initializeMediaSession() {
 
         mMediaSession = new MediaSessionCompat(getActivity(), TAG);
@@ -241,8 +245,6 @@ public  class StepFragment extends Fragment implements Player.EventListener {
             exoPlayer.prepare(mediaSource);
             if (mCurrentVideoPosition != -1) {
                 Log.w(TAG, ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>initializePlayer mCurrentVideoPosition not -1");
-                Log.w(TAG, ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" + mCurrentVideoPosition);
-                Log.w(TAG, ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" + mPlayWhenReady);
                 exoPlayer.seekTo(mCurrentVideoPosition);
                 exoPlayer.setPlayWhenReady(mPlayWhenReady);
             } else {
@@ -261,7 +263,6 @@ public  class StepFragment extends Fragment implements Player.EventListener {
             Log.w(TAG, ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>releasePlayer mExoPlayer not null");
             try {
                 mPlayWhenReady = exoPlayer.getPlayWhenReady();
-                Log.w(TAG, ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" + mPlayWhenReady);
             } catch (NullPointerException e) {
                 e.printStackTrace();
             }
@@ -385,6 +386,7 @@ public  class StepFragment extends Fragment implements Player.EventListener {
     public void onSaveInstanceState(@NonNull Bundle outState) {
         Log.w(TAG, ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>onSaveInstanceState");
         super.onSaveInstanceState(outState);
+        outState.putParcelable(Constants.CURRENT_STEP_POSITION_KEY,currentStep);
         outState.putBoolean(Constants.PLAY_WHEN_READY, mPlayWhenReady);
         outState.putLong(Constants.CURRENT_VIDEO_POSITION, mCurrentVideoPosition);
 

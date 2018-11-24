@@ -1,5 +1,6 @@
 package com.udacity.heather.timetobake.utilities;
 
+import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.udacity.heather.timetobake.models.Recipe;
@@ -15,7 +16,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RecipeLibraryManager {
 
-    private final  String BASE_URL = "https://d17h27t6h515a5.cloudfront.net/";
     private final RecipeLibraryService RecipeLibraryService;
 
     private String TAG = RecipeLibraryManager.class.getSimpleName();
@@ -47,12 +47,12 @@ public class RecipeLibraryManager {
         RecipeLibraryService.getRecipes().enqueue(new Callback<List<Recipe>>() {
 
             @Override
-            public void onResponse(Call<List<Recipe>> call, Response<List<Recipe>> response) {
+            public void onResponse(@NonNull Call<List<Recipe>> call, Response<List<Recipe>> response) {
                 recipeLibraryCallback.onResponse(response.body());
             }
 
             @Override
-            public void onFailure(Call<List<Recipe>> call, Throwable t) {
+            public void onFailure(@NonNull Call<List<Recipe>> call, Throwable t) {
                 if (call.isCanceled()) {
                     Log.e(TAG, "Request was cancelled");
                     recipeLibraryCallback.onCancel();

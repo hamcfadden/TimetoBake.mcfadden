@@ -8,12 +8,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.udacity.heather.timetobake.utilities.Constants;
 import com.udacity.heather.timetobake.R;
 import com.udacity.heather.timetobake.fragments.IngredientFragment;
 import com.udacity.heather.timetobake.fragments.StepFragment;
-import com.udacity.heather.timetobake.fragments.StepFragment.NextPreviousClickListener;
 import com.udacity.heather.timetobake.models.Recipe;
+import com.udacity.heather.timetobake.utilities.Constants;
 
 
 public class RecipeDetailActivity extends AppCompatActivity implements StepFragment.NextPreviousClickListener {
@@ -67,7 +66,7 @@ public class RecipeDetailActivity extends AppCompatActivity implements StepFragm
     }
 
     @Override
-    public void onNextClicked () {
+    public void onNextClicked (int position) {
         setTitle(currentRecipe.getSteps().get(stepPosition).getShortDescription());
         int stepCount = currentRecipe.getSteps().size();
         if (stepPosition < stepCount - 1) {
@@ -79,7 +78,7 @@ public class RecipeDetailActivity extends AppCompatActivity implements StepFragm
     }
 
     @Override
-    public void onPreviousClicked() {
+    public void onPreviousClicked(int position) {
         setTitle(currentRecipe.getSteps().get(stepPosition).getShortDescription());
         if (stepPosition > 0) {
             stepPosition--;
@@ -116,8 +115,6 @@ public class RecipeDetailActivity extends AppCompatActivity implements StepFragm
         }
         return super.onOptionsItemSelected(item);
     }
-    @Override
-    public void onPointerCaptureChanged(boolean hasCapture) {
 
-    }
+
 }

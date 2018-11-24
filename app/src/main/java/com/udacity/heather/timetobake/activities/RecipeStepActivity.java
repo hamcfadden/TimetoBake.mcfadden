@@ -92,6 +92,7 @@ public class RecipeStepActivity extends AppCompatActivity implements RecipeFragm
     public void onStepSelected(int position) {
         // Tablet
         if (mTwoPane) {
+
             FragmentManager fragmentManager = getSupportFragmentManager();
             StepFragment stepFragment = new StepFragment();
             Bundle stepBundle = new Bundle();
@@ -110,7 +111,7 @@ public class RecipeStepActivity extends AppCompatActivity implements RecipeFragm
             if (intent.resolveActivity(getPackageManager()) != null) {
                 startActivity(intent);
             }
-            Log.w(RecipeStepActivity.class.getSimpleName(), ">>>>>>>>>>>>>>>>>>>>>>>>>onInstructionSelected Activity");
+            Log.w(RecipeStepActivity.class.getSimpleName(), ">>>>>>>>>>>>>>>>>>>>>>>>>onStepSelected Activity");
         }
     }
 
