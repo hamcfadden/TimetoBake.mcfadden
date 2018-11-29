@@ -17,4 +17,6 @@
     <string name="play_btn_notification">Play</string>
     <string name="recipe_ingredients">Recipe Ingredients</string>
     <string name="main_activity_label">Time To Bake!!!</string>
+    <string name="widget_previous_arrow_content_description">previous arrow</string>
+    <string name="widget_next_arrow_content_description">next arrow</string>
 </resources>
