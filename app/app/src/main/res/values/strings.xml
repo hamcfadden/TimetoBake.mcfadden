@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">Time to Bake!!</string>
+    <string name="image">Image</string>
+    <string name="step">Step</string>
+    <string name="previous_btn">PREVIOUS</string>
+    <string name="next_btn">NEXT</string>
+    <string name="last_step_toast_message">This is the last step.</string>
+    <string name="first_step_toast_message">This is the first step.</string>
+    <string name="ingredients_header_quantity">Quantity</string>
+    <string name="ingredients_header">Ingredients</string>
+    <string name="menu_action_back">Back</string>
+    <string name="loading_canceled">Loading Cancelled</string>
+    <string name="no_data_to_display">No data to display.</string>
+    <string name="no_internet">No Internet</string>
+    <string name="restart_btn_notification">Restart</string>
+    <string name="pause_btn_notification">Pause</string>
+    <string name="play_btn_notification">Play</string>
+    <string name="recipe_ingredients">Recipe Ingredients</string>
+    <string name="main_activity_label">Time To Bake!!!</string>
+    <string name="widget_previous_arrow_content_description">previous arrow</string>
+    <string name="widget_next_arrow_content_description">next arrow</string>
+</resources>

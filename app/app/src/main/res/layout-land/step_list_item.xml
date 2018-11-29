@@ -1,0 +1,40 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/step_item_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/normal_margin"
+        android:layout_marginTop="@dimen/normal_margin"
+        android:layout_marginEnd="@dimen/normal_margin"
+        android:tag="layout/step_list_item_1">
+
+        <TextView
+            android:id="@+id/tv_step_id_label"
+            style="@style/step_list_item_title"
+            android:paddingStart="@dimen/normal_margin"
+            android:paddingEnd="@dimen/normal_margin"
+            android:text="@string/step"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_step_id"
+            style="@style/step_list_item_title"
+            android:layout_marginStart="@dimen/normal_margin"
+            app:layout_constraintStart_toEndOf="@+id/tv_step_id_label"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="1" />
+
+        <TextView
+            android:id="@+id/tv_step_short_description"
+            style="@style/step_list_item_primary_text"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            app:layout_constraintStart_toStartOf="@+id/tv_step_id_label"
+            app:layout_constraintTop_toBottomOf="@+id/tv_step_id_label"
+            tools:text="Starting prep" />
+    </android.support.constraint.ConstraintLayout>
+</layout>
