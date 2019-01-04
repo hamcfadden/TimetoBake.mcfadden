@@ -2,37 +2,38 @@ package com.udacity.heather.timetobake;
 
 import android.annotation.SuppressLint;
 import android.app.Application;
-import android.arch.lifecycle.AndroidViewModel;
-import android.arch.lifecycle.MutableLiveData;
 import android.content.Context;
-import android.support.annotation.NonNull;
 import android.widget.Toast;
 
 import com.udacity.heather.timetobake.models.Recipe;
 import com.udacity.heather.timetobake.utilities.NetworkUtils;
-import com.udacity.heather.timetobake.utilities.RecipeLibraryManager;
 import com.udacity.heather.timetobake.utilities.RecipeLibraryCallback;
-
+import com.udacity.heather.timetobake.utilities.RecipeLibraryManager;
 
 import java.util.List;
 
-public class ViewModel extends AndroidViewModel {
+import androidx.annotation.NonNull;
+import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.MutableLiveData;
+
+public class RecipeViewModel extends AndroidViewModel {
 
     @SuppressLint("StaticFieldLeak")
     private Context mContext;
-    private MutableLiveData<List<Recipe>> recipeList;
+    private MutableLiveData<List<Recipe>> recipes
+            ;
 
-    public ViewModel(@NonNull Application application) {
+    public RecipeViewModel(@NonNull Application application) {
         super(application);
         mContext = application.getApplicationContext();
-        if (recipeList == null) {
-            recipeList = new MutableLiveData<>();
+        if (recipes == null) {
+            recipes = new MutableLiveData<>();
             loadRecipes();
         }
     }
 
-    public MutableLiveData<List<Recipe>> getRecipeList() {
-        return recipeList;
+    public MutableLiveData<List<Recipe>> getRecipes() {
+        return recipes;
     }
 
     private void loadRecipes() {
@@ -59,7 +60,7 @@ public class ViewModel extends AndroidViewModel {
     }
 
     private void setLoadedRecipesToLiveDataObject(List<Recipe> recipe) {
-        recipeList.setValue(recipe);
+        recipes.setValue(recipe);
     }
 
 }

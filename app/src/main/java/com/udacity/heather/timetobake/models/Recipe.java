@@ -97,12 +97,12 @@ public class Recipe implements Parcelable, IGson
         this.name = name;
     }
 
-    public List<Ingredient> getIngredients() {
-        return ingredients;
+   public List<Ingredient> getIngredients() {
+       return ingredients;
     }
 
     public void setIngredients(List<Ingredient> ingredients) {
-        this.ingredients = ingredients;
+       this.ingredients = ingredients;
     }
 
     public List<Step> getSteps() {

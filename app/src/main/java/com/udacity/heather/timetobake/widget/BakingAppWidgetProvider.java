@@ -88,11 +88,11 @@ public class BakingAppWidgetProvider extends AppWidgetProvider {
                 currentRecipePosition = newRecipePosition;
                 Preferences.saveCurrentRecipePosition(context, newRecipePosition);
             }
-            RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.ingredients_widget_list_item);
+            RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.baking_app_widget);
             Recipe currentRecipe = recipes.get(currentRecipePosition);
 
             if (currentRecipe != null) {
-                // Intent to open current recipe details in RecipeActivity when clicked
+                // Intent to open current recipe details in RecipeStepActivity when clicked
                 Intent appIntent = new Intent(context, RecipeStepActivity.class);
                 appIntent.putExtra(Constants.CURRENT_RECIPE_ID_WIDGET, currentRecipe);
                 PendingIntent pendingIntent = PendingIntent.getActivity(context, 0, appIntent, PendingIntent.FLAG_UPDATE_CURRENT);

@@ -19,7 +19,7 @@
             android:layout_width="106dp"
             android:layout_height="103dp"
             android:contentDescription="@string/image"
-            android:src="@drawable/recipe_icon"
+            app:srcCompat="@drawable/recipe_icon"
             android:textAlignment="gravity" />
 
         <TextView

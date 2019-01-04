@@ -1,8 +1,8 @@
-<layout>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_margin="4dp"
     android:background="@drawable/recipe_background_transparent"
     android:orientation="horizontal"
@@ -14,7 +14,7 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:contentDescription="@string/widget_previous_arrow_content_description"
-        android:src="@drawable/ic_baseline_keyboard_arrow_left_24px" />
+        app:srcCompat="@drawable/ic_baseline_keyboard_arrow_left_24px" />
 
 
     <LinearLayout
@@ -31,39 +31,45 @@
             style="@style/widget_primary_text"
             tools:text="Nutella Pie" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
 
-            <TextView
-                android:textStyle="bold"
-                android:textColor="@color/colorPrimaryDark"
-                android:text="@string/ingredients_header"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"/>
 
-            <TextView
-                android:textStyle="bold"
-                android:textColor="@color/colorPrimaryDark"
-                android:layout_marginStart="@dimen/normal_margin"
-                android:text="@string/ingredients_header_quantity"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
-        <ListView
-            android:id="@+id/recipe_widget_listview"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/ingredient_list_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="8dp">
 
-    </LinearLayout>
+
+
+                    <TextView
+                        android:id="@+id/tv_ingredients_header"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingStart="8dp"
+                        android:text="@string/ingredients_header"
+                        android:textColor="@android:color/black"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                    <ListView
+                        android:id="@+id/recipe_widget_listview"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="@dimen/detail_padding"
+                        android:paddingRight="@dimen/detail_padding"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_ingredients_header"
+                        tools:listitem="@layout/ingredients_widget_list_item" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ImageView
         android:id="@+id/iv_next_nav"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:contentDescription="@string/widget_next_arrow_content_description"
-        android:src="@drawable/ic_baseline_keyboard_arrow_right_24px" />
+        app:srcCompat="@drawable/ic_baseline_keyboard_arrow_right_24px" />
 </LinearLayout>
-</layout>
+    </LinearLayout>

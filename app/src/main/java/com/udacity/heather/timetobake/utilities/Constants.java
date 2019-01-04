@@ -1,5 +1,9 @@
 package com.udacity.heather.timetobake.utilities;
 
+import com.udacity.heather.timetobake.models.Recipe;
+
+import java.util.List;
+
 public class Constants {
 
     public static final String REQUEST_URL = "https://d17h27t6h515a5.cloudfront.net/";
@@ -21,5 +25,14 @@ public class Constants {
     public static final String ACTION_NEXT_RECIPE = "startActionNextRecipe";
     public static final String NOTIFICATION_CHANNEL_ID = "my_channel_id_01";
 
-}
+
+    public static List<Recipe> extractRecipesData(String jsonResponse) {
+        if (jsonResponse == null) extractRecipesData(jsonResponse);
+            return null;
+        }
+
+    }
+
+
+
 

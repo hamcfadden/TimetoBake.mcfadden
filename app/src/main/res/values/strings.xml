@@ -19,4 +19,6 @@
     <string name="main_activity_label">Time To Bake!!!</string>
     <string name="widget_previous_arrow_content_description">previous arrow</string>
     <string name="widget_next_arrow_content_description">next arrow</string>
+    <string name="placeholder_image">film image</string>
+    <string name="thumbnail_image">thumbnail_image</string>
 </resources>

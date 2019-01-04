@@ -1,21 +1,22 @@
 package com.udacity.heather.timetobake.fragments;
 
 import android.content.Context;
-import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.udacity.heather.timetobake.utilities.Constants;
 import com.udacity.heather.timetobake.R;
 import com.udacity.heather.timetobake.adapters.StepAdapter;
 import com.udacity.heather.timetobake.databinding.FragmentRecipeBinding;
 import com.udacity.heather.timetobake.models.Recipe;
+import com.udacity.heather.timetobake.utilities.Constants;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.databinding.DataBindingUtil;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 public class RecipeFragment extends Fragment implements  StepAdapter.StepAdapterOnClickHandler {
    private OnCurrentRecipeClickListener mCallback;
@@ -25,7 +26,6 @@ public class RecipeFragment extends Fragment implements  StepAdapter.StepAdapter
     public void onClick(int position) {
         mCallback.onStepSelected(position);
     }
-
 
     public interface OnCurrentRecipeClickListener {
         void onStepSelected(int position);
@@ -46,10 +46,9 @@ public class RecipeFragment extends Fragment implements  StepAdapter.StepAdapter
 
     @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,@Nullable Bundle savedInstanceState) {
         FragmentRecipeBinding recipeBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_recipe, container, false);
         View view = recipeBinding.getRoot();
-
 
         LinearLayoutManager stepLayoutManager = new LinearLayoutManager(getActivity());
         recipeBinding.rvStepList.setLayoutManager(stepLayoutManager);

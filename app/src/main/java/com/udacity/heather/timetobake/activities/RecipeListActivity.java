@@ -1,30 +1,27 @@
 package com.udacity.heather.timetobake.activities;
 
-import android.arch.lifecycle.Observer;
-import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.annotation.VisibleForTesting;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.udacity.heather.timetobake.R;
 import com.udacity.heather.timetobake.RecipeIdlingResource;
-import com.udacity.heather.timetobake.ViewModel;
+import com.udacity.heather.timetobake.RecipeViewModel;
 import com.udacity.heather.timetobake.adapters.RecipeListAdapter;
 import com.udacity.heather.timetobake.databinding.ActivityRecipeListBinding;
 import com.udacity.heather.timetobake.models.Recipe;
 import com.udacity.heather.timetobake.utilities.Constants;
 import com.udacity.heather.timetobake.utilities.NetworkUtils;
 
-import java.util.List;
-
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.annotation.VisibleForTesting;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.test.espresso.IdlingResource;
 
 
@@ -44,50 +41,44 @@ public class RecipeListActivity extends AppCompatActivity implements RecipeListA
         return mIdlingResource;
     }
 
-        @Override
-        protected void onCreate (Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-            mainBinding = DataBindingUtil.setContentView(this, R.layout.activity_recipe_list);
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+      mainBinding = DataBindingUtil.setContentView(this,R.layout.activity_recipe_list);
 
-          //  if (savedInstanceState != null) {
-                RecyclerView.LayoutManager layoutManager;
-
-
-                int orientation = getResources().getConfiguration().orientation;
-
-                if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
-                    // In landscape
-                    layoutManager = new LinearLayoutManager(this);
-                } else {
-                    // In portrait
-                    layoutManager = new LinearLayoutManager(this);
-                }
-
-                mainBinding.rvRecipeList.setLayoutManager(layoutManager);
-                mainBinding.rvRecipeList.setHasFixedSize(true);
-                recipeListAdapter = new RecipeListAdapter(this);
-                mainBinding.rvRecipeList.setAdapter(recipeListAdapter);
+        //  if (savedInstanceState != null) {
+        RecyclerView.LayoutManager layoutManager;
 
 
-                setupViewModel();
-                getIdlingResource();
-            }
+        int orientation = getResources().getConfiguration().orientation;
+
+        if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            // In landscape
+            layoutManager = new LinearLayoutManager(this);
+        } else {
+            // In portrait
+            layoutManager = new LinearLayoutManager(this);
+        }
+
+        mainBinding.rvRecipeList.setLayoutManager(layoutManager);
+        mainBinding.rvRecipeList.setHasFixedSize(true);
+        recipeListAdapter = new RecipeListAdapter(this);
+        mainBinding.rvRecipeList.setAdapter(recipeListAdapter);
+
+
+        setupViewModel();
+        getIdlingResource();
+    }
 
 
     private void setupViewModel() {
-        ViewModel viewModel = ViewModelProviders.of(this).get(ViewModel.class);
-        if (NetworkUtils.isConnected(this) && viewModel.getRecipeList() != null) {
+        RecipeViewModel recipeViewModel = ViewModelProviders.of(this).get(RecipeViewModel.class);
+        if (NetworkUtils.isConnected(this) && recipeViewModel.getRecipes() != null) {
             showRecipesDataView();
-            viewModel.getRecipeList().observe(this, new Observer<List<Recipe>>() {
+            recipeViewModel.getRecipes().observe(this, recipeList -> {
 
-
-                @Override
-                public void onChanged(@Nullable List<Recipe> recipeList) {
-
-                    recipeListAdapter.setRecipesData(recipeList);
-                    recipeListAdapter.notifyDataSetChanged();
-                }
-
+                recipeListAdapter.setRecipesData(recipeList);
+                recipeListAdapter.notifyDataSetChanged();
             });
         } else {
             showErrorMessage();
@@ -104,16 +95,32 @@ public class RecipeListActivity extends AppCompatActivity implements RecipeListA
 
     }
 
-    @Override
-    public void onClick(Recipe currentRecipe) {
+  //  @Override
+   // public void onClick(Recipe clickedItemIndex) {
+       // Bundle selectedRecipeBundle = new Bundle();
+     //   ArrayList<Recipe> selectedRecipe = new ArrayList<>(); {
 
-        Intent intent = new Intent(RecipeListActivity.this, RecipeStepActivity.class);
-        intent.putExtra(Constants.CURRENT_RECIPE, currentRecipe);
-        if (intent.resolveActivity(getPackageManager()) != null) {
-            startActivity(intent);
-        }
-    }
-}
+
+      //  };
+      //  selectedRecipe.add(clickedItemIndex);
+      //  selectedRecipeBundle.putParcelableArrayList("recipe", selectedRecipe);
+
+       // final Intent intent = new Intent(this, RecipeDetailActivity.class);
+       // intent.putExtras(selectedRecipeBundle);
+       // startActivity(intent);
+   // }
+//}
+
+
+      public void onClick(Recipe currentRecipe) {
+      Intent intent = new Intent(RecipeListActivity.this, RecipeStepActivity.class);
+      intent.putExtra(Constants.CURRENT_RECIPE, currentRecipe);
+      if (intent.resolveActivity(getPackageManager()) != null) {
+      startActivity(intent);
+      }
+      }
+      }
+
 
 
 

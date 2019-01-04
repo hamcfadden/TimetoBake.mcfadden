@@ -1,9 +1,8 @@
 package com.udacity.heather.timetobake.activities;
 
+
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
-import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -14,14 +13,20 @@ import com.udacity.heather.timetobake.fragments.StepFragment;
 import com.udacity.heather.timetobake.models.Recipe;
 import com.udacity.heather.timetobake.utilities.Constants;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+
 
 public class RecipeDetailActivity extends AppCompatActivity implements StepFragment.NextPreviousClickListener {
     private Recipe currentRecipe;
     private int stepPosition;
     FragmentManager fragmentManager;
 
+    @Nullable
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate( Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_detail);
 
@@ -59,14 +64,14 @@ public class RecipeDetailActivity extends AppCompatActivity implements StepFragm
         }
     }
     @Override
-    protected void onSaveInstanceState (Bundle outState){
+    protected void onSaveInstanceState (@NonNull Bundle outState){
         outState.putParcelable(Constants.CURRENT_RECIPE, currentRecipe);
         outState.putInt(Constants.CURRENT_STEP_POSITION_KEY, stepPosition);
         super.onSaveInstanceState(outState);
     }
 
     @Override
-    public void onNextClicked (int position) {
+    public void onNextClicked () {
         setTitle(currentRecipe.getSteps().get(stepPosition).getShortDescription());
         int stepCount = currentRecipe.getSteps().size();
         if (stepPosition < stepCount - 1) {
@@ -78,7 +83,7 @@ public class RecipeDetailActivity extends AppCompatActivity implements StepFragm
     }
 
     @Override
-    public void onPreviousClicked(int position) {
+    public void onPreviousClicked() {
         setTitle(currentRecipe.getSteps().get(stepPosition).getShortDescription());
         if (stepPosition > 0) {
             stepPosition--;

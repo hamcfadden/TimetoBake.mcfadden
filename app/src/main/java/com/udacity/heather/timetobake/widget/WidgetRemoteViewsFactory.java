@@ -1,79 +1,102 @@
 package com.udacity.heather.timetobake.widget;
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.udacity.heather.timetobake.R;
 import com.udacity.heather.timetobake.models.Ingredient;
 import com.udacity.heather.timetobake.models.Recipe;
-import com.udacity.heather.timetobake.utilities.Preferences;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.List;
 
 
 public class WidgetRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactory {
-        private Context context;
-        private static List<Ingredient> ingredients = new ArrayList<>();
-        private int currentRecipePosition = 0;
-        private List<Recipe> recipes;
+    public static ArrayList<Recipe>  selectedRecipe = new ArrayList<>();
+    private static final String TAG = "IngredientsListRemoteViewFactory";
+
+    ArrayList<Ingredient> ingredientList = new ArrayList<>();
+    Context mContext;
+
+    public WidgetRemoteViewsFactory(Context applicationContext){
+        mContext = applicationContext;
+    }
+
+    private void readIngredients(){
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(mContext.getApplicationContext());
+        Gson gson = new Gson();
+
+        String json = prefs.getString("ingredients", "");
+        Type type = new TypeToken<ArrayList<Ingredient>>(){}.getType();
+        ingredientList = gson.fromJson(json, type);
+    }
+
+    @Override
+    public void onCreate() {
+        readIngredients();
+    }
+
+    @Override
+    public void onDataSetChanged() {
+        readIngredients();
+
+    }
+
+    @Override
+    public void onDestroy() {
+
+    }
+
+    @Override
+    public int getCount() {
+        return ingredientList.size();
+    }
+
+    @Override
+    public RemoteViews getViewAt(int position) {
+        RemoteViews views = new RemoteViews(mContext.getPackageName(), R.layout.ingredients_widget_list_item);
+
+        views.setTextViewText(R.id.current_recipe_layout, "\u2022 " + ingredientList.get(position).getIngredient()
+                + "\n" +  "Quantity: " + String.valueOf(ingredientList.get(position).getQuantity())
+                + "\n" +  "Measure: " + ingredientList.get(position).getMeasure());
 
 
-        WidgetRemoteViewsFactory(Context applicationContext, String recipeString) {
-            context = applicationContext;
-            Recipe currentRecipe = recipes.get(currentRecipePosition);
-            ingredients = currentRecipe.getIngredients();
-        }
+        Bundle selectedRecipeBundle = new Bundle();
+        selectedRecipeBundle.putParcelableArrayList("recipe",selectedRecipe);
 
-        @Override
-        public void onCreate() {
-        }
+        Intent fillInIntent = new Intent();
+        views.setOnClickFillInIntent(R.id.recipe_widget_listview, fillInIntent);
 
-        @Override
-        public void onDataSetChanged() {
-            currentRecipePosition =Preferences.getCurrentRecipePosition(context);
-            Recipe currentRecipe = recipes.get(currentRecipePosition);
-            ingredients = currentRecipe.getIngredients();
-        }
+        return views;
+    }
 
-        @Override
-        public void onDestroy() {
+    @Override
+    public RemoteViews getLoadingView() {
+        return null;
+    }
 
-        }
+    @Override
+    public int getViewTypeCount() {
+        return 1;
+    }
 
-        @Override
-        public int getCount() {
-            if (ingredients == null) return 0;
-            return ingredients.size();
-        }
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
 
-        @Override
-        public RemoteViews getViewAt(int position) {
-            if (ingredients == null || ingredients.size() == 0) return null;
-            RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.ingredients_widget_list_item);
-            views.setTextViewText(R.id.tv_ingredient_widget, ingredients.get(position).getIngredient());
-            views.setTextViewText(R.id.tv_quantity_widget, String.valueOf(ingredients.get(position).getQuantity()));
-            return views;
-        }
+    @Override
+    public boolean hasStableIds() {
+        return true;
+    }
 
-        @Override
-        public RemoteViews getLoadingView() {
-            return null;
-        }
 
-        @Override
-        public int getViewTypeCount() {
-            return 1;
-        }
 
-        @Override
-        public long getItemId(int position) {
-            return position;
-        }
-
-        @Override
-        public boolean hasStableIds() {
-            return true;
-        }
     }

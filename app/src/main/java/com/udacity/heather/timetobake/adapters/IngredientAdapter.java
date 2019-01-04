@@ -1,7 +1,5 @@
 package com.udacity.heather.timetobake.adapters;
 
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -10,9 +8,12 @@ import com.udacity.heather.timetobake.models.Ingredient;
 
 import java.util.List;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
 public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.IngredientAdapterImageViewHolder> {
 
-    public List<Ingredient>  ingredients;
+    private List<Ingredient>  ingredients;
 
 
     public IngredientAdapter() {
@@ -44,7 +45,7 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.In
 
         IngredientAdapterImageViewHolder(IngredientListItemBinding binding) {
             super(binding.getRoot());
-            itemBinding = binding;
+            this.itemBinding = binding;
         }
 
         void bindItem(Ingredient currentIngredient) {

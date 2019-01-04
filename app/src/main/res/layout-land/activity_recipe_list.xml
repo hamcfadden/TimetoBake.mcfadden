@@ -14,7 +14,7 @@
             android:layout_marginRight="8dp"
             android:tag="layout/recipe_list_land"
             android:baselineAligned="false"
-            android:divider="?android:attr/dividerHorizontal"
+            android:divider="?attr/dividerHorizontal"
             android:orientation="horizontal"
             android:showDividers="middle"
             tools:context=".activities.RecipeListActivity">
@@ -25,7 +25,7 @@
 
             -->
 
-            <android.support.v7.widget.RecyclerView xmlns:tools="http://schemas.android.com/tools"
+            <androidx.recyclerview.widget.RecyclerView xmlns:tools="http://schemas.android.com/tools"
                 android:id="@+id/rv_recipe_list"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

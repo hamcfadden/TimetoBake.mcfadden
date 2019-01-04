@@ -1,8 +1,7 @@
 package com.udacity.heather.timetobake.adapters;
 
+
 import android.content.Context;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,8 +11,12 @@ import com.udacity.heather.timetobake.models.Recipe;
 
 import java.util.List;
 
-public class RecipeListAdapter
-            extends RecyclerView.Adapter<RecipeListAdapter.ViewHolder> {
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
+import static android.view.LayoutInflater.from;
+
+public class RecipeListAdapter extends RecyclerView.Adapter<RecipeListAdapter.ViewHolder> {
 
     private List<Recipe> recipeList;
     private RecipeListAdapterOnClickHandler clickHandler;
@@ -21,24 +24,25 @@ public class RecipeListAdapter
     public RecipeListAdapter(RecipeListAdapterOnClickHandler clickHandler) {
         this.clickHandler = clickHandler;
     }
-    public void setRecipesData(List<Recipe> recipeList) {
-        this.recipeList = recipeList;
-        notifyDataSetChanged();
-    }
+
+        public void setRecipesData (List < Recipe > recipeList) {
+            this.recipeList = recipeList;
+            notifyDataSetChanged();
+        }
+
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int viewType) {
         Context context = viewGroup.getContext();
-        LayoutInflater inflater = LayoutInflater.from(context);
-        RecipeListItemBinding mainBinding = RecipeListItemBinding.inflate(inflater, viewGroup, false);
-        return new ViewHolder(mainBinding);
+        LayoutInflater inflater = from(context);
+        RecipeListItemBinding itemBinding = RecipeListItemBinding.inflate(inflater, viewGroup, false);
+        return new ViewHolder(itemBinding);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-       int viewPosition = holder.getAdapterPosition();
-        Recipe currentRecipe = recipeList.get(viewPosition);
+        Recipe currentRecipe = recipeList.get(position);
         holder.bind(currentRecipe);
     }
 
@@ -47,18 +51,18 @@ public class RecipeListAdapter
         if (recipeList == null) return 0;
         return recipeList.size();
     }
-    public interface RecipeListAdapterOnClickHandler {
-        void onClick(Recipe currentRecipe);
-    }
+
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-       private final RecipeListItemBinding itemBinding;
+        private final RecipeListItemBinding itemBinding;
 
-      ViewHolder(RecipeListItemBinding itemBinding) {
-            super(itemBinding.getRoot());
-            this.itemBinding = itemBinding;
-           itemBinding.getRoot().setOnClickListener(this);
+
+        ViewHolder(RecipeListItemBinding binding) {
+            super(binding.getRoot());
+            itemBinding = binding;
+            itemView.setOnClickListener(this);
         }
+
 
         public void bind(Recipe recipe) {
             String recipeId = String.valueOf(recipe.getId());
@@ -68,9 +72,15 @@ public class RecipeListAdapter
         }
 
         @Override
-        public void onClick(View v) {
-            int clickedPosition = getAdapterPosition();
-            clickHandler.onClick(recipeList.get(clickedPosition));
+        public void onClick(View view) {
+            int adapterPosition = getAdapterPosition();
+            Recipe currentRecipe = recipeList.get(adapterPosition);
+            clickHandler.onClick(currentRecipe);
         }
     }
-}
+            public interface RecipeListAdapterOnClickHandler {
+                void onClick(Recipe currentRecipe);
+            }
+
+    }
+

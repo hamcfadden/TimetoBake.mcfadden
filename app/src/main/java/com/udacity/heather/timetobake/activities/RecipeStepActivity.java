@@ -2,18 +2,19 @@ package com.udacity.heather.timetobake.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentManager;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.udacity.heather.timetobake.utilities.Constants;
 import com.udacity.heather.timetobake.R;
 import com.udacity.heather.timetobake.fragments.IngredientFragment;
 import com.udacity.heather.timetobake.fragments.RecipeFragment;
 import com.udacity.heather.timetobake.fragments.StepFragment;
 import com.udacity.heather.timetobake.models.Recipe;
+import com.udacity.heather.timetobake.utilities.Constants;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
 
 
 public class RecipeStepActivity extends AppCompatActivity implements RecipeFragment.OnCurrentRecipeClickListener {

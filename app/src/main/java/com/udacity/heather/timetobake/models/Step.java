@@ -3,7 +3,7 @@ package com.udacity.heather.timetobake.models;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.os.Parcelable.Creator;
+
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -54,8 +54,8 @@ public class Step implements Parcelable
      * No args constructor for use in serialization
      *
      */
-    public Step() {
-    }
+   // public Step() {
+    //}
 
     /**
      *
@@ -72,6 +72,10 @@ public class Step implements Parcelable
         this.description = description;
         this.videoURL = videoURL;
         this.thumbnailURL = thumbnailURL;
+    }
+
+    public Step() {
+
     }
 
     public Integer getId() {

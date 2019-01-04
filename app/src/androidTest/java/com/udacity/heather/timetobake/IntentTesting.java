@@ -1,6 +1,5 @@
 package com.udacity.heather.timetobake;
 
-import android.app.Activity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
@@ -18,6 +17,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.test.espresso.ViewAssertion;
 import androidx.test.espresso.intent.rule.IntentsTestRule;
 import androidx.test.filters.LargeTest;
@@ -64,7 +64,7 @@ public class IntentTesting {
     public void stubAllExternalIntents() {
         // By default Espresso Intents does not stub any Intents. Stubbing needs to be setup before
         // every test run. In this case all external Intents will be blocked.
-        intending(not(isInternal())).respondWith(new ActivityResult(Activity.RESULT_OK, null));
+        intending(not(isInternal())).respondWith(new ActivityResult(AppCompatActivity.RESULT_OK, null));
     }
 
     @Test

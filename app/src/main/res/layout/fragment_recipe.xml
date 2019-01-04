@@ -20,7 +20,7 @@
            android:textColor="@color/colorPrimaryDark"
            android:textSize="18sp" />
 
-       <android.support.v7.widget.RecyclerView
+       <androidx.recyclerview.widget.RecyclerView
 
            android:id="@+id/rv_step_list"
            android:layout_width="match_parent"
