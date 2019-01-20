@@ -7,8 +7,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
-import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.media.session.MediaSessionCompat;
@@ -67,23 +65,15 @@ public  class StepFragment extends Fragment implements Player.EventListener {
     private static MediaSessionCompat mMediaSession;
     private PlaybackStateCompat.Builder mStateBuilder;
     private NotificationManager mNotificationManager;
-    // An interface to implement onNextClicked and onPreviousClicked functions
+
     private NextPreviousClickListener nextPreviousClickListener;
 
     private boolean mPlayWhenReady = true;
     private long mCurrentVideoPosition = -1;
 
-    String mVideoThumbnail;
-    Bitmap mVideoThumbnailImage;
-    Drawable film;
-
-    public static final String STEP_URI = "step_uri";
-    public static final String VIDEO = "video";
 
     public StepFragment() {
-
     }
-
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -121,7 +111,6 @@ public  class StepFragment extends Fragment implements Player.EventListener {
         stepPosition = getArguments().getInt(Constants.CURRENT_STEP_POSITION_KEY);
         currentStep = currentRecipe.getSteps().get(stepPosition);
 
-
         initializeMediaSession();
 
         stepBinding.tvStepDescription.setText(currentStep.getDescription());
@@ -139,24 +128,6 @@ public  class StepFragment extends Fragment implements Player.EventListener {
 
             stepBinding.btnPreviousStep.setOnClickListener(v -> nextPreviousClickListener.onPreviousClicked());
 
-      //  if (!currentStep.getThumbnailURL().equals("") && !TextUtils.isEmpty(currentStep.getThumbnailURL())) {
-
-          //  stepBinding.simpleExoPlayerView.setVisibility(View.GONE);
-            //stepBinding.imageView.setVisibility(View.VISIBLE);
-
-          //  Log.w(TAG, ">>>>>>>>>>>>>>Thumbnail URL is not empty");
-
-            // stepBinding.imageView.setVisibility(View.VISIBLE);
-            //   stepBinding.simpleExoPlayerView.setVisibility(View.GONE);
-           // mVideoThumbnail = currentStep.getThumbnailURL();
-            //mVideoThumbnailImage = ThumbnailUtils.createVideoThumbnail(mVideoThumbnail, MediaStore.Video.Thumbnails.MICRO_KIND);
-
-            // }else{
-            //stepBinding.simpleExoPlayerView.setDefaultArtwork(mVideoThumbnailImage);
-            //stepBinding.simpleExoPlayerView.setVisibility(View.VISIBLE);
-            //stepBinding.imageView.setVisibility(View.GONE);
-
-       // }
         return view;
                     }
 
@@ -166,15 +137,13 @@ public  class StepFragment extends Fragment implements Player.EventListener {
 
                         void onPreviousClicked();
                     }
-
-
                     // Helper method to initialize ExoPlayer
 
                     @Override
                     public void onAttach (@NonNull Context context){
                         super.onAttach(context);
 
-                        if (mTwoPane = true) {
+                        if (!mTwoPane) {
                             try {
                                 nextPreviousClickListener = (NextPreviousClickListener) context;
                             } catch (ClassCastException e) {
@@ -206,7 +175,6 @@ public  class StepFragment extends Fragment implements Player.EventListener {
                         // Start the Media Session since the activity is active.
                         mMediaSession.setActive(true);
                     }
-
 
                     // Helper method to show exoPlayer notification to control and show current step video info
                     private void showNotification (PlaybackStateCompat state){
@@ -244,20 +212,12 @@ public  class StepFragment extends Fragment implements Player.EventListener {
                         mNotificationManager = (NotificationManager) getActivity().getSystemService(NOTIFICATION_SERVICE);
                         mNotificationManager.notify(0, builder.build());
                     }
-                    public void initializePlayer (Uri mediaUri){
+                    private void initializePlayer(Uri mediaUri){
 
-                     //   if (currentStep.getVideoURL() .equals("")) {
-                       //     stepBinding.simpleExoPlayerView.setVisibility(View.GONE);
-                         //   stepBinding.imageView.setVisibility(View.VISIBLE);
-                        //}else{
-                          //  stepBinding.simpleExoPlayerView.setVisibility(View.VISIBLE);
-                            //stepBinding.imageView.setVisibility(View.GONE);
-                       // }
+
                         if (exoPlayer == null) {
                             Log.w(TAG, ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>initializePlayer mExoPlayer not null");
-                            // Create an instance of the ExoPlayer.
 
-                            //exoPlayer = ExoPlayerFactory.newSimpleInstance(getActivity(), (RenderersFactory) new DefaultLoadControl(), new DefaultTrackSelector());
                             TrackSelector trackSelector = new DefaultTrackSelector();
                             LoadControl loadControl = new DefaultLoadControl();
 
@@ -300,9 +260,6 @@ public  class StepFragment extends Fragment implements Player.EventListener {
                             exoPlayer = null;
                         }
                     }
-                   // @Override
-                    //public void onTimelineChanged(Timeline timeline, Object manifest) {
-                    //}
 
                     @Override
                     public void onTracksChanged(TrackGroupArray trackGroups, TrackSelectionArray trackSelections) {

@@ -13,6 +13,7 @@ import com.udacity.heather.timetobake.fragments.StepFragment;
 import com.udacity.heather.timetobake.models.Recipe;
 import com.udacity.heather.timetobake.utilities.Constants;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 
@@ -84,7 +85,7 @@ public class RecipeStepActivity extends AppCompatActivity implements RecipeFragm
     }
 
     @Override
-    protected void onSaveInstanceState(Bundle outState) {
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
         outState.putParcelable(Constants.CURRENT_RECIPE, currentRecipe);
         super.onSaveInstanceState(outState);
     }
@@ -153,6 +154,4 @@ public class RecipeStepActivity extends AppCompatActivity implements RecipeFragm
         }
         return super.onOptionsItemSelected(item);
     }
-
 }
-

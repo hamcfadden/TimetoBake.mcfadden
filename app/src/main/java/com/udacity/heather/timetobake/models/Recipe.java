@@ -1,19 +1,17 @@
 package com.udacity.heather.timetobake.models;
 
 
-
-
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.google.gson.Gson;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Recipe implements Parcelable, IGson
-{
+public class Recipe implements Parcelable, IGson {
     @SerializedName("id")
     @Expose
     private int id;
@@ -40,6 +38,7 @@ public class Recipe implements Parcelable, IGson
         public Recipe createFromParcel(Parcel in) {
             return new Recipe(in);
         }
+
         public Recipe[] newArray(int size) {
             return (new Recipe[size]);
         }
@@ -57,13 +56,11 @@ public class Recipe implements Parcelable, IGson
 
     /**
      * No args constructor for use in serialization
-     *
      */
     public Recipe() {
     }
 
     /**
-     *
      * @param ingredients
      * @param id
      * @param servings
@@ -81,6 +78,14 @@ public class Recipe implements Parcelable, IGson
         this.image = image;
     }
 
+
+    @Override    public String toJson() {
+        return new Gson().toJson(this);
+    }
+
+
+
+
     public int getId() {
         return id;
     }
@@ -97,12 +102,12 @@ public class Recipe implements Parcelable, IGson
         this.name = name;
     }
 
-   public List<Ingredient> getIngredients() {
-       return ingredients;
+    public List<Ingredient> getIngredients() {
+        return ingredients;
     }
 
     public void setIngredients(List<Ingredient> ingredients) {
-       this.ingredients = ingredients;
+        this.ingredients = ingredients;
     }
 
     public List<Step> getSteps() {
@@ -142,8 +147,6 @@ public class Recipe implements Parcelable, IGson
         return 0;
     }
 
-    @Override
-    public String toJson() {
-        return null;
-    }
+
 }
+

@@ -17,7 +17,6 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.In
 
 
     public IngredientAdapter() {
-
     }
 
     @NonNull

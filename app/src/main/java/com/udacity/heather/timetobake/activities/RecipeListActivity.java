@@ -5,7 +5,6 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.view.View;
 
-import com.udacity.heather.timetobake.R;
 import com.udacity.heather.timetobake.RecipeIdlingResource;
 import com.udacity.heather.timetobake.RecipeViewModel;
 import com.udacity.heather.timetobake.adapters.RecipeListAdapter;
@@ -24,8 +23,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.test.espresso.IdlingResource;
 
+import static com.udacity.heather.timetobake.R.layout.activity_recipe_list;
+
 
 public class RecipeListActivity extends AppCompatActivity implements RecipeListAdapter.RecipeListAdapterOnClickHandler {
+
     private ActivityRecipeListBinding mainBinding;
     private RecipeListAdapter recipeListAdapter;
 
@@ -41,17 +43,17 @@ public class RecipeListActivity extends AppCompatActivity implements RecipeListA
         return mIdlingResource;
     }
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-      mainBinding = DataBindingUtil.setContentView(this,R.layout.activity_recipe_list);
+        mainBinding = DataBindingUtil.setContentView(this, activity_recipe_list);
 
         //  if (savedInstanceState != null) {
         RecyclerView.LayoutManager layoutManager;
 
 
         int orientation = getResources().getConfiguration().orientation;
-
         if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
             // In landscape
             layoutManager = new LinearLayoutManager(this);
@@ -64,7 +66,6 @@ public class RecipeListActivity extends AppCompatActivity implements RecipeListA
         mainBinding.rvRecipeList.setHasFixedSize(true);
         recipeListAdapter = new RecipeListAdapter(this);
         mainBinding.rvRecipeList.setAdapter(recipeListAdapter);
-
 
         setupViewModel();
         getIdlingResource();
@@ -86,40 +87,25 @@ public class RecipeListActivity extends AppCompatActivity implements RecipeListA
     }
 
     private void showRecipesDataView() {
-
         mainBinding.rvRecipeList.setVisibility(View.VISIBLE);
     }
 
     private void showErrorMessage() {
         mainBinding.rvRecipeList.setVisibility(View.INVISIBLE);
-
     }
 
-  //  @Override
-   // public void onClick(Recipe clickedItemIndex) {
-       // Bundle selectedRecipeBundle = new Bundle();
-     //   ArrayList<Recipe> selectedRecipe = new ArrayList<>(); {
+    public void onClick(Recipe currentRecipe) {
+        Intent appIntent = new Intent(RecipeListActivity.this, RecipeStepActivity.class);
+        appIntent.putExtra(Constants.CURRENT_RECIPE, currentRecipe);
+        if (appIntent.resolveActivity(getPackageManager()) != null) {
+            startActivity(appIntent);
+        }
+    }
+}
 
 
-      //  };
-      //  selectedRecipe.add(clickedItemIndex);
-      //  selectedRecipeBundle.putParcelableArrayList("recipe", selectedRecipe);
-
-       // final Intent intent = new Intent(this, RecipeDetailActivity.class);
-       // intent.putExtras(selectedRecipeBundle);
-       // startActivity(intent);
-   // }
-//}
 
 
-      public void onClick(Recipe currentRecipe) {
-      Intent intent = new Intent(RecipeListActivity.this, RecipeStepActivity.class);
-      intent.putExtra(Constants.CURRENT_RECIPE, currentRecipe);
-      if (intent.resolveActivity(getPackageManager()) != null) {
-      startActivity(intent);
-      }
-      }
-      }
 
 
 

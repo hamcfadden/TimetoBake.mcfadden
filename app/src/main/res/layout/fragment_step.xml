@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
 
     <LinearLayout
@@ -25,7 +24,8 @@
                 android:layout_margin="8dp"
                 android:padding="8dp"
                 android:visibility="gone"
-                app:srcCompat="@drawable/film" />
+                app:srcCompat="@drawable/film"
+                android:contentDescription="@string/film_strip_image" />
 
             <com.google.android.exoplayer2.ui.SimpleExoPlayerView
                 android:id="@+id/simple_exo_player_view"

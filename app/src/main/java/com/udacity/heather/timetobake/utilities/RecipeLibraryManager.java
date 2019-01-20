@@ -1,12 +1,12 @@
 package com.udacity.heather.timetobake.utilities;
 
-import androidx.annotation.NonNull;
 import android.util.Log;
 
 import com.udacity.heather.timetobake.models.Recipe;
 
 import java.util.List;
 
+import androidx.annotation.NonNull;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -16,7 +16,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RecipeLibraryManager {
 
-    private final RecipeLibraryService RecipeLibraryService;
+    private  RecipeLibraryService RecipeLibraryService;
 
     private String TAG = RecipeLibraryManager.class.getSimpleName();
     private static volatile RecipeLibraryManager sharedInstance = new RecipeLibraryManager();

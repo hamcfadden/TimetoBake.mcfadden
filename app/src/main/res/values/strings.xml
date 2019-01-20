@@ -21,4 +21,7 @@
     <string name="widget_next_arrow_content_description">next arrow</string>
     <string name="placeholder_image">film image</string>
     <string name="thumbnail_image">thumbnail_image</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
+    <string name="film_strip_image">film_strip_image</string>
 </resources>

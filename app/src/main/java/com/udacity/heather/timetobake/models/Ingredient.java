@@ -3,6 +3,8 @@ package com.udacity.heather.timetobake.models;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+
+import com.google.gson.Gson;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -10,7 +12,7 @@ public class Ingredient implements Parcelable, IGson {
 
     @SerializedName("quantity")
     @Expose
-    private Double quantity;
+    private Float quantity;
     @SerializedName("measure")
     @Expose
     private String measure;
@@ -31,37 +33,40 @@ public class Ingredient implements Parcelable, IGson {
             return (new Ingredient[size]);
         }
 
-    };
+    }
+            ;
 
     protected Ingredient(Parcel in) {
-        this.quantity = ((Double) in.readValue((Double.class.getClassLoader())));
+        this.quantity = ((Float) in.readValue((Float.class.getClassLoader())));
         this.measure = ((String) in.readValue((String.class.getClassLoader())));
         this.ingredient = ((String) in.readValue((String.class.getClassLoader())));
     }
 
     /**
      * No args constructor for use in serialization
+     *
      */
     public Ingredient() {
     }
 
     /**
+     *
      * @param measure
      * @param ingredient
      * @param quantity
      */
-    public Ingredient(Double quantity, String measure, String ingredient) {
+    public Ingredient(Float quantity, String measure, String ingredient) {
         super();
         this.quantity = quantity;
         this.measure = measure;
         this.ingredient = ingredient;
     }
 
-    public Double getQuantity() {
+    public Float getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(Double quantity) {
+    public void setQuantity(Float quantity) {
         this.quantity = quantity;
     }
 
@@ -93,6 +98,6 @@ public class Ingredient implements Parcelable, IGson {
 
     @Override
     public String toJson() {
-        return null;
+        return new Gson().toJson(this);
     }
 }

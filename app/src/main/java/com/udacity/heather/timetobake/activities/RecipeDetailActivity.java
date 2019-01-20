@@ -14,7 +14,6 @@ import com.udacity.heather.timetobake.models.Recipe;
 import com.udacity.heather.timetobake.utilities.Constants;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 
@@ -24,7 +23,7 @@ public class RecipeDetailActivity extends AppCompatActivity implements StepFragm
     private int stepPosition;
     FragmentManager fragmentManager;
 
-    @Nullable
+
     @Override
     public void onCreate( Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -120,6 +119,4 @@ public class RecipeDetailActivity extends AppCompatActivity implements StepFragm
         }
         return super.onOptionsItemSelected(item);
     }
-
-
 }
